@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Image Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 3000vh; /* Abbastanza spazio per scrollare */
+            font-family: Arial, sans-serif;
+            background-color: #333;
+        }
+
+        .image-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 1s ease, opacity 1s ease;
+            z-index: 1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .text {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            font-size: 18px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Immagine 1 -->
+    <div class="image-container" id="img1-container">
+        <img src="Immagini/Immagine 1.png" alt="Image 1">
+        <div class="text">Testo immagine 1</div>
+    </div>
+
+    <!-- Immagine 2 -->
+    <div class="image-container" id="img2-container">
+        <img src="Immagini/Immagine 2.png" alt="Image 2">
+        <div class="text">Testo immagine 2</div>
+    </div>
+
+    <!-- Immagine 3 -->
+    <div class="image-container" id="img3-container">
+        <img src="Immagini/Immagine 3.png" alt="Image 3">
+        <div class="text">Testo immagine 3</div>
+    </div>
+
+    <!-- Immagine 4 -->
+    <div class="image-container" id="img4-container">
+        <img src="Immagini/Immagine 4.png" alt="Image 4">
+        <div class="text">Testo immagine 4</div>
+    </div>
+
+    <!-- Immagine 5 -->
+    <div class="image-container" id="img5-container">
+        <img src="Immagini/Immagine 5.png" alt="Image 5">
+        <div class="text">Testo immagine 5</div>
+    </div>
+
+    <script>
+        // Funzione per l'animazione dell'immagine 1
+        function updateImage1(scrollPosition) {
+            const img1 = document.getElementById('img1-container');
+            const startScroll1 = 500;
+            const endScroll1 = 1000;
+
+            if (scrollPosition >= startScroll1 && scrollPosition < endScroll1) {
+                img1.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                img1.style.opacity = '1';
+            }
+
+            if (scrollPosition >= endScroll1) {
+                img1.style.transform = 'translate(-50%, -50%) scale(6)';
+                img1.style.opacity = '0';
+            }
+
+            if (scrollPosition < startScroll1) {
+                img1.style.transform = 'translate(-50%, -50%) scale(0)';
+                img1.style.opacity = '0';
+            }
+        }
+
+        // Funzione per l'animazione dell'immagine 2
+        function updateImage2(scrollPosition) {
+            const img2 = document.getElementById('img2-container');
+            const startScroll2 = 1500;
+            const endScroll2 = 2000;
+
+            if (scrollPosition >= startScroll2 && scrollPosition < endScroll2) {
+                img2.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                img2.style.opacity = '1';
+            }
+
+            if (scrollPosition >= endScroll2) {
+                img2.style.transform = 'translate(-50%, -50%) scale(6)';
+                img2.style.opacity = '0';
+            }
+
+            if (scrollPosition < startScroll2) {
+                img2.style.transform = 'translate(-50%, -50%) scale(0)';
+                img2.style.opacity = '0';
+            }
+        }
+
+        // Funzione per l'animazione dell'immagine 3
+        function updateImage3(scrollPosition) {
+            const img3 = document.getElementById('img3-container');
+            const startScroll3 = 2500;
+            const endScroll3 = 3000;
+
+            if (scrollPosition >= startScroll3 && scrollPosition < endScroll3) {
+                img3.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                img3.style.opacity = '1';
+            }
+
+            if (scrollPosition >= endScroll3) {
+                img3.style.transform = 'translate(-50%, -50%) scale(6)';
+                img3.style.opacity = '0';
+            }
+
+            if (scrollPosition < startScroll3) {
+                img3.style.transform = 'translate(-50%, -50%) scale(0)';
+                img3.style.opacity = '0';
+            }
+        }
+
+        // Funzione per l'animazione dell'immagine 4
+        function updateImage4(scrollPosition) {
+            const img4 = document.getElementById('img4-container');
+            const startScroll4 = 3500;
+            const endScroll4 = 4000;
+
+            if (scrollPosition >= startScroll4 && scrollPosition < endScroll4) {
+                img4.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                img4.style.opacity = '1';
+            }
+
+            if (scrollPosition >= endScroll4) {
+                img4.style.transform = 'translate(-50%, -50%) scale(6)';
+                img4.style.opacity = '0';
+            }
+
+            if (scrollPosition < startScroll4) {
+                img4.style.transform = 'translate(-50%, -50%) scale(0)';
+                img4.style.opacity = '0';
+            }
+        }
+
+        // Funzione per l'animazione dell'immagine 5
+        function updateImage5(scrollPosition) {
+            const img5 = document.getElementById('img5-container');
+            const startScroll5 = 4500;
+            const endScroll5 = 5000;
+
+            if (scrollPosition >= startScroll5 && scrollPosition < endScroll5) {
+                img5.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                img5.style.opacity = '1';
+            }
+
+            if (scrollPosition >= endScroll5) {
+                img5.style.transform = 'translate(-50%, -50%) scale(6)';
+                img5.style.opacity = '0';
+            }
+
+            if (scrollPosition < startScroll5) {
+                img5.style.transform = 'translate(-50%, -50%) scale(0)';
+                img5.style.opacity = '0';
+            }
+        }
+
+        // Aggiungi un listener per lo scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            updateImage1(scrollPosition);
+            updateImage2(scrollPosition);
+            updateImage3(scrollPosition);
+            updateImage4(scrollPosition);
+            updateImage5(scrollPosition);
+        });
+
+        // Chiama le funzioni all'inizio per aggiornare la posizione iniziale
+        updateImage1(window.scrollY);
+        updateImage2(window.scrollY);
+        updateImage3(window.scrollY);
+        updateImage4(window.scrollY);
+        updateImage5(window.scrollY);
+    </script>
+
+</body>
+</html>
