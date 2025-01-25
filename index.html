@@ -38,16 +38,104 @@
             text-align: center;
             color: white;
         }
+
+        /* Wrapper della galleria che permette lo scroll orizzontale */
+        .gallery-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Galleria che si muove orizzontalmente */
+        .gallery {
+            left: 100%;
+            bottom: 30%;
+            position: fixed;
+            display: flex;
+            gap: 30px;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Immagini della galleria */
+        .gallery-image {
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            opacity: 0.3;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* Immagine attiva (centrata) */
+        .gallery-image.active {
+            width: 500px;
+            height: 400px;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Immagine successiva (semi-trasparente) */
+        .gallery-image.next {
+            opacity: 0.5;
+            transform: scale(0.9);
+        }
+
+        /* Immagine fissa in alto a sinistra */
+        .fixed-image {
+            position: fixed;
+            top: 5%;
+            left: 7%;
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+            z-index: 100; /* Garantisce che l'immagine fissa sia sempre sopra */
+        }
+        
+        .textautori {
+            position: absolute;
+            top: 45%;
+            left: 22%;
+            transform: translateX(-50%);
+            width: 60vw;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+        }
+        
     </style>
 </head>
 <body>
 
-    <!-- Immagine 1 -->
-    <div class="image-container" id="img1-container">
-        <img src="Immagini/Immagine 1.png" alt="Image 1">
-        <div class="text">Testo immagine 1</div>
-    </div>
+    <!-- Immagine fissa nell'angolo -->
+    <div class="fixed-image">
+        <img src="Immagini/Autori intarsi.png" alt="Immagine Fissa" class="fixed-image">
+        <p class="textautori">Gli autori Giovan Francesco Capoferri</p>
+        <p style="top:50%;" class="textautori">e Lorenzo Lotto</p>
+    </div> 
 
+    <!-- Galleria di immagini -->
+    <section class="gallery-wrapper">
+        <div class="gallery">
+            <img src="Immagini/Adamo_e_Eva_tarsia.png" alt="Immagine 1" class="gallery-image"> <!-- Questa è ora la nuova img1 -->
+            <div style="top: 112%; left: 16%; font-size: 130%;" class="text" id="testo1-1">Testo immagine 1</div>
+            
+            <img src="Immagini/Tarsia_della_Giuditta_restaurata.jpg" alt="Immagine 2" class="gallery-image">
+            <div style="top: 112%; left: 32%; font-size: 130%;" class="text" id="testo1-2">Testo immagine 2</div>
+            
+            <img src="Immagini/Tarsia 1.jpg" alt="Immagine 3" class="gallery-image">
+            <div style="top: 112%; left: 51%; font-size: 130%;" class="text" id="testo1-3">Testo immagine 3</div>
+            
+            <img src="Immagini/Immagine 4.png" alt="Immagine 4" class="gallery-image">
+            <div style="top: 112%; left: 68%; font-size: 130%;" class="text" id="testo1-4">Testo immagine 4</div>
+            
+            <img src="Immagini/Immagine 5.png" alt="Immagine 5" class="gallery-image">
+            <div style="top: 112%; left: 31%; font-size: 130%;" class="text" id="testo1-5">Testo immagine 5</div>
+        </div>
+    </section>
+    
     <!-- Immagine 2 -->
     <div class="image-container" id="img2-container">
         <img src="Immagini/Immagine 2.png" alt="Image 2">
@@ -73,33 +161,90 @@
     </div>
 
     <script>
-        // Funzione per l'animazione dell'immagine 1
-        function updateImage1(scrollPosition) {
-            const img1 = document.getElementById('img1-container');
-            const startScroll1 = 500;
-            const endScroll1 = 1000;
+        document.addEventListener("DOMContentLoaded", () => {
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            const fixedImage = document.querySelectorAll('.fixed-image');
+            const autori = document.querySelectorAll('.textautori');
+            const gallery = document.querySelector('.gallery');
+            const totalImages = galleryImages.length;
+            const testo1 = document.getElementById('testo1-1');
+            const testo2 = document.getElementById('testo1-2');
+            const testo3 = document.getElementById('testo1-3');
+            const testo4 = document.getElementById('testo1-4');
+            const testo5 = document.getElementById('testo1-5');
 
-            if (scrollPosition >= startScroll1 && scrollPosition < endScroll1) {
-                img1.style.transform = 'translate(-50%, -50%) scale(2.5)';
-                img1.style.opacity = '1';
+            function updateGallery(scrollPercent) {
+                const totalWidth = gallery.scrollWidth;
+                const viewWidth = window.innerWidth;
+                const maxScroll = totalWidth - viewWidth;
+
+                let centeredIndex = Math.floor(scrollPercent * totalImages);
+                if (centeredIndex >= totalImages) {
+                    centeredIndex = totalImages - 1;
+                }
+
+                const centeredImage = galleryImages[centeredIndex];
+                const centeredImageOffset = centeredImage.offsetLeft + (centeredImage.offsetWidth / 2);
+                const scrollX = 1600 + centeredImageOffset - (viewWidth / 2);
+
+                gallery.style.transform = `translateX(${-scrollX}px)`;
+
+                galleryImages.forEach((img, index) => {
+                    img.classList.remove('active', 'next');
+
+                    if (index === centeredIndex) {
+                        img.classList.add('active');
+                        testo1.style.opacity = index === 0 ? 1 : 0;
+                        testo2.style.opacity = index === 1 ? 1 : 0;
+                        testo3.style.opacity = index === 2 ? 1 : 0;
+                        testo4.style.opacity = index === 3 ? 1 : 0;
+                        testo5.style.opacity = index === 4 ? 1 : 0;
+                    } else if (index === (centeredIndex + 1) % totalImages) {
+                        img.classList.add('next');
+                    }
+                });
             }
 
-            if (scrollPosition >= endScroll1) {
-                img1.style.transform = 'translate(-50%, -50%) scale(6)';
-                img1.style.opacity = '0';
-            }
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const scrollMax = document.body.scrollHeight - window.innerHeight;
+                const scrollThreshold = scrollMax / 12;
 
-            if (scrollPosition < startScroll1) {
-                img1.style.transform = 'translate(-50%, -50%) scale(0)';
-                img1.style.opacity = '0';
-            }
-        }
+                const scrollPercent = scrollY / scrollThreshold;
+
+                updateGallery(scrollPercent);
+
+                galleryImages.forEach((img) => {
+                    if (scrollY <= scrollThreshold) {
+                        img.style.opacity = 1;
+                    } else {
+                        img.style.opacity = 1 - (scrollY / scrollThreshold);
+                    }
+                });
+
+                fixedImage.forEach((img) => {
+                    if (scrollY <= scrollThreshold) {
+                        img.style.opacity = 1;
+                    } else {
+                        img.style.opacity = 1 - (scrollY / scrollThreshold);
+                    }
+                });
+
+                autori.forEach((text) => {
+                    if (scrollY <= scrollThreshold) {
+                        text.style.opacity = 1;
+                    } else {
+                        text.style.opacity = 1 - (scrollY / scrollThreshold);
+                    }
+                });
+            });
+        });
 
         // Funzione per l'animazione dell'immagine 2
         function updateImage2(scrollPosition) {
             const img2 = document.getElementById('img2-container');
-            const startScroll2 = 1500;
-            const endScroll2 = 2000;
+            const startScroll3 = 2500;
+            const endScroll3 = 3000;
 
             if (scrollPosition >= startScroll2 && scrollPosition < endScroll2) {
                 img2.style.transform = 'translate(-50%, -50%) scale(2.5)';
@@ -120,8 +265,8 @@
         // Funzione per l'animazione dell'immagine 3
         function updateImage3(scrollPosition) {
             const img3 = document.getElementById('img3-container');
-            const startScroll3 = 2500;
-            const endScroll3 = 3000;
+            const startScroll4 = 3500;
+            const endScroll4 = 4000;
 
             if (scrollPosition >= startScroll3 && scrollPosition < endScroll3) {
                 img3.style.transform = 'translate(-50%, -50%) scale(2.5)';
@@ -142,8 +287,8 @@
         // Funzione per l'animazione dell'immagine 4
         function updateImage4(scrollPosition) {
             const img4 = document.getElementById('img4-container');
-            const startScroll4 = 3500;
-            const endScroll4 = 4000;
+            const startScroll5 = 4500;
+            const endScroll5 = 5000;
 
             if (scrollPosition >= startScroll4 && scrollPosition < endScroll4) {
                 img4.style.transform = 'translate(-50%, -50%) scale(2.5)';
@@ -164,8 +309,8 @@
         // Funzione per l'animazione dell'immagine 5
         function updateImage5(scrollPosition) {
             const img5 = document.getElementById('img5-container');
-            const startScroll5 = 4500;
-            const endScroll5 = 5000;
+            const startScroll5 = 5000;
+            const endScroll5 = 5500;
 
             if (scrollPosition >= startScroll5 && scrollPosition < endScroll5) {
                 img5.style.transform = 'translate(-50%, -50%) scale(2.5)';
@@ -186,7 +331,6 @@
         // Aggiungi un listener per lo scroll
         window.addEventListener('scroll', () => {
             const scrollPosition = window.scrollY;
-            updateImage1(scrollPosition);
             updateImage2(scrollPosition);
             updateImage3(scrollPosition);
             updateImage4(scrollPosition);
@@ -194,7 +338,6 @@
         });
 
         // Chiama le funzioni all'inizio per aggiornare la posizione iniziale
-        updateImage1(window.scrollY);
         updateImage2(window.scrollY);
         updateImage3(window.scrollY);
         updateImage4(window.scrollY);
