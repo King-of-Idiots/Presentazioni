@@ -1,0 +1,146 @@
+body, html {
+            margin: 0;
+            padding: 0;
+            height: 4800px; /* Abbastanza spazio per scrollare */
+            font-family: Arial, sans-serif;
+            background-color: #333;
+        }
+
+        .image-container {
+            position: fixed;
+            width: auto;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 1s ease, opacity 1s ease;
+            z-index: 1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .text {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            font-size: 18px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Wrapper della galleria che permette lo scroll orizzontale */
+        .gallery-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1000px; /* Sposta la galleria più in basso */
+            opacity: 0; /* Initially invisible */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Galleria che si muove orizzontalmente */
+        .gallery {
+            left: 100%;
+            bottom: 30%;
+            position: fixed;
+            display: flex;
+            gap: 30px;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Immagini della galleria */
+        .gallery-image {
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            opacity: 0.3;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* Immagine attiva (centrata) */
+        .gallery-image.active {
+            width: 500px;
+            height: 400px;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Immagine successiva (semi-trasparente) */
+        .gallery-image.next {
+            opacity: 0.5;
+            transform: scale(0.9);
+        }
+
+        /* Immagine fissa in alto a sinistra */
+        .fixed-image {
+            position: fixed;
+            top: 2%;
+            left: 2%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            z-index: 100; /* Garantisce che l'immagine fissa sia sempre sopra */
+            transition: opacity 0.5s ease-in-out; /* Add transition for opacity */
+            opacity: 0; /* Initially invisible */
+        }
+        
+        .textautori {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+            transition: opacity 0.5s ease-in-out; /* Add transition for opacity */
+        }
+
+        .gallery-image#sacrificio-di-isacco {
+            object-fit: contain; /* Ensure the entire image fits within the container */
+        }
+
+        .float-image-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .float-image {
+            float: left;
+            margin-right: 20px;
+            width: 300px;
+            height: auto;
+            margin-left: 30px;
+            margin-top: 30px; /* Lower the position of the image */
+        }
+
+        .float-text {
+            color: white;
+            font-size: 18px;
+            margin-left: 30px;
+            margin-top: 30px; /* Lower the position of the first text */
+        }
+
+        .clear {
+            clear: both;
+        }
+        
+        @keyframes fadeout {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
