@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Immagini/Favicon.png" type="image/png">
     <title>Scroll Image Animation</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            height: 3000vh; /* Abbastanza spazio per scrollare */
+            height: 4800px; /* Abbastanza spazio per scrollare */
             font-family: Arial, sans-serif;
             background-color: #333;
         }
 
         .image-container {
             position: fixed;
+            width: auto;
+            height: auto;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
@@ -48,6 +51,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 1000px; /* Sposta la galleria più in basso */
+            opacity: 0; /* Initially invisible */
+            transition: opacity 0.5s ease-in-out;
         }
 
         /* Galleria che si muove orizzontalmente */
@@ -86,85 +92,149 @@
         /* Immagine fissa in alto a sinistra */
         .fixed-image {
             position: fixed;
-            top: 5%;
-            left: 7%;
-            width: 400px;
-            height: 400px;
+            top: 2%;
+            left: 2%;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             z-index: 100; /* Garantisce che l'immagine fissa sia sempre sopra */
+            transition: opacity 0.5s ease-in-out; /* Add transition for opacity */
+            opacity: 0; /* Initially invisible */
         }
         
         .textautori {
             position: absolute;
-            top: 45%;
-            left: 22%;
+            top: 100%;
+            left: 50%;
             transform: translateX(-50%);
             width: 60vw;
             font-size: 20px;
             text-align: center;
             color: white;
+            transition: opacity 0.5s ease-in-out; /* Add transition for opacity */
+        }
+
+        .gallery-image#sacrificio-di-isacco {
+            object-fit: contain; /* Ensure the entire image fits within the container */
+        }
+
+        .float-image-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .float-image {
+            float: left;
+            margin-right: 20px;
+            width: 300px;
+            height: auto;
+            margin-left: 30px;
+            margin-top: 30px; /* Lower the position of the image */
+        }
+
+        .float-text {
+            color: white;
+            font-size: 18px;
+            margin-left: 30px;
+            margin-top: 30px; /* Lower the position of the first text */
+        }
+
+        .clear {
+            clear: both;
         }
         
+        @keyframes fadeout {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
 
+    <div class="float-image-container">
+        <img src="Immagini/ImgContestoStorico.png" alt="Float Image" class="float-image">
+        <div class="float-text">
+            <p>La Basilica di Santa Maria Maggiore di Bergamo, costruita a partire dal 1137, è un esempio significativo di architettura religiosa che mescola elementi romanici e barocchi. la chiesa fu eretta come atto di devozione dopo un'epidemia di peste che aveva colpito la città, con l'intento di ringraziare la Madonna per la sua protezione. Nel corso dei secoli, la basilica ha subito diverse modifiche, con un importante restyling gotico nel XIII secolo e una ristrutturazione barocca nel XVII secolo, che ha conferito alla chiesa l'aspetto attuale.</p>
+            <p>Tra le opere più rilevanti all'interno della basilica, si trovano il Crocifisso ligneo del XIV secolo, donato da una donna di nome Belfiore De Pomo, e il monumento funebre del compositore Gaetano Donizetti, realizzato da Vincenzo Vela nel 1855. Un altro capolavoro di grande importanza è la Cappella Colleoni, una splendida opera di architettura rinascimentale che ospita la tomba del celebre condottiero Bartolomeo Colleoni, considerata una delle maggiori attrazioni artistiche della basilica.</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+
     <!-- Immagine fissa nell'angolo -->
     <div class="fixed-image">
-        <img src="Immagini/Autori intarsi.png" alt="Immagine Fissa" class="fixed-image">
-        <p class="textautori">Gli autori Giovan Francesco Capoferri</p>
-        <p style="top:50%;" class="textautori">e Lorenzo Lotto</p>
+        <img src="Immagini/Autori intarsi.png" alt="Immagine Fissa" class="fixed-image" id="fixed-image">
+        <p class="textautori">Gli autori</p>
+        <p style="top:110%;" class="textautori">Giovan Francesco Capoferri</p>
+        <p style="top:120%;" class="textautori">e Lorenzo Lotto</p>
     </div> 
 
     <!-- Galleria di immagini -->
     <section class="gallery-wrapper">
         <div class="gallery">
             <img src="Immagini/Adamo_e_Eva_tarsia.png" alt="Immagine 1" class="gallery-image"> <!-- Questa è ora la nuova img1 -->
-            <div style="top: 112%; left: 16%; font-size: 130%;" class="text" id="testo1-1">Testo immagine 1</div>
+            <div style="top: 115%; left: 16%; font-size: 130%;" class="text" id="testo1-1">Questa tarsia raffigura il momento della creazione di Eva, un episodio tratto dal Libro della Genesi. Mentre Adamo dorme, Eva, nel frattempo, esce dal suo fianco, simboleggiando la creazione della prima donna. La scena cerca di rappresentare il potere divino e la nascita dell'umanità.</div>
             
-            <img src="Immagini/Tarsia_della_Giuditta_restaurata.jpg" alt="Immagine 2" class="gallery-image">
-            <div style="top: 112%; left: 32%; font-size: 130%;" class="text" id="testo1-2">Testo immagine 2</div>
+            <img src="Immagini/Sacrificio di Isacco.jpg" alt="Immagine 2" class="gallery-image" id="sacrificio-di-isacco">
+            <div style="top: 112%; left: 32%; font-size: 130%;" class="text" id="testo1-2">In questa tarsia viene rappresentata la scena biblica in cui Abramo al comando di Dio, è pronto a sacrificare suo figlio Isacco. Abramo alza il coltello e un angelo interviene all'ultimo momento per fermare il sacrificio. Questa tarsia rappresenta la fede di Abramo, ma anche la misericordia di Dio.</div>
             
-            <img src="Immagini/Tarsia 1.jpg" alt="Immagine 3" class="gallery-image">
-            <div style="top: 112%; left: 51%; font-size: 130%;" class="text" id="testo1-3">Testo immagine 3</div>
+            <img src="Immagini/MosèRiceveLeTavoleDellaLegge.jpg" alt="Immagine 3" class="gallery-image">
+            <div style="top: 112%; left: 51%; font-size: 130%;" class="text" id="testo1-3">Questa tarsia rappresenta Mosè, mentre riceve le tavole della legge, sul monte sinai. Mosè è rappresentato con le tavole nelle mani mentre Dio appare dall'alto tra le nuvole e le fiamme. La tarsia raffigura il patto tra Dio e i fedeli e cerca di sottolineare l'importanza della legge divina.</div>
             
-            <img src="Immagini/Immagine 4.png" alt="Immagine 4" class="gallery-image">
-            <div style="top: 112%; left: 68%; font-size: 130%;" class="text" id="testo1-4">Testo immagine 4</div>
+            <img src="Immagini/L'arcaDiNoè.jpg" alt="Immagine 4" class="gallery-image">
+            <div style="top: 112%; left: 68%; font-size: 130%;" class="text" id="testo1-4">La tarsia dell'Arca di Noè realizzata da Lorenzo Lotto e i fratelli Capoferri, rappresenta il Diluvio Universale. La scena si divide in due parti: a destra, l'arca con gli animali in sicurezza, mentre a sinistra, la distruzione e il caos causato dal diluvio. Lotto utilizza il contrasto tra luce e ombra per simboleggiare la salvezza attraverso la fede e la morte derivante dal peccato, con un riferimento al battesimo come purificazione    .</div>
             
-            <img src="Immagini/Immagine 5.png" alt="Immagine 5" class="gallery-image">
-            <div style="top: 112%; left: 31%; font-size: 130%;" class="text" id="testo1-5">Testo immagine 5</div>
+            <img style="margin-top: 0.8%;" src="Immagini/Tarsia_della_Giuditta_restaurata.png" alt="Immagine 5" class="gallery-image">
+            <div style="top: 96%; left: 84%; font-size: 130%;" class="text" id="testo1-5">La tarsia di Giuditta, rappresenta la decapitazione di Oloferne fatto dalla vedova Giuditta. Al centro si vede Giuditta, che regge la testa mozzata di un generale assiro, mentre a destra ci sono dei soldati che fanno atti di disprezzo verso la chiesa. La tarsia rappresenta la scena simbolica che mostra il trionfo della chiesa sulla violenza.</div>
         </div>
     </section>
     
     <!-- Immagine 2 -->
     <div class="image-container" id="img2-container">
-        <img src="Immagini/Immagine 2.png" alt="Image 2">
-        <div class="text">Testo immagine 2</div>
+        <img style="scale: 0.3; margin-bottom: 2%;" src="Immagini/Bergamo,_Santa_Maria_Maggiore,_2016-06_CN-04.jpg" alt="Image 2">
+        <div style="top: 67%; left: 50%; font-size: 60%; transform: translate(-50%, -50%);" class="text">L'Altare Maggiore della Basilica di Santa Maria Maggiore<br> è un esempio di arte barocca, ornato da ricchi intarsi in legno e decorazioni elaborate.<br> Sopra l'altare spicca una tela di Giambattista Tiepolo. I dettagli raffinati e l'uso di materiali<br> pregiati gli d'hanno all'altare una grandiosità unica, rendendolo un punto focale della basilica.</div>
     </div>
 
     <!-- Immagine 3 -->
     <div class="image-container" id="img3-container">
-        <img src="Immagini/Immagine 3.png" alt="Image 3">
-        <div class="text">Testo immagine 3</div>
-    </div>
-
-    <!-- Immagine 4 -->
-    <div class="image-container" id="img4-container">
-        <img src="Immagini/Immagine 4.png" alt="Image 4">
-        <div class="text">Testo immagine 4</div>
+        <img style="scale: 0.2; margin-bottom: 3%;" src="Immagini/Scuola_lombarda,_crocifisso_in_legno,_1300-50_circa.png" alt="Image 3">
+        <div style="top: 60.4%; left: 50%; font-size: 50%; transform: translate(-50%, -50%);" class="text">Il crocifisso della Basilica di Santa Maria Maggiore fu donato nel 1350 da Belfiore De Pomo che era una vedova.<br> Realizzato in legno e dipinto in avorio con dettagli rossi che simboleggiavno il sangue di Cristo.<br> Il volto di Gesù esprime sofferenza, mentre il perizoma decorato con azzurro e oro, ne evidenzia la sacralità.<br> L'opera unisce elementi dell'espressionismo tedesco e padano.</div>
     </div>
 
     <!-- Immagine 5 -->
-    <div class="image-container" id="img5-container">
+    <div class="image-container" id="img5-container" style="right: 10px; bottom: 10px; width: 200px; height: auto;">
         <img src="Immagini/Immagine 5.png" alt="Image 5">
         <div class="text">Testo immagine 5</div>
     </div>
 
+    <!-- Tour Virtuale -->
+    <section style="text-align: center; color: white; margin-top: 2500px;">
+        <h1>Tour Virtuale</h1>
+        <p><a href="https://www.fondazionmia.it/360/2015-BG-sMariaMagg-Fondo/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Navata centrale</a></p>
+        <p><a href="https://www.fondazionmia.it/360/BG-QuarengMilia-SMariaM-NavataDx/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Navata destra</a></p>
+        <p><a href="https://www.fondazionmia.it/360/BG-QuarengMilia-SMariaM-NavataSx/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Navata sinistra</a></p>
+        <p><a href="https://www.fondazionmia.it/360/BG-QuarengMilia-SMariaM-Palco/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Palco</a></p>
+        <p><a href="https://www.fondazionmia.it/360/BG-QuarengMilia-SMariaM-TransSx/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Transetto sinistro</a></p>
+        <p><a href="https://www.fondazionmia.it/360/BG-QuarengMilia-SMariaM-TransDx/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Transetto destro</a></p>
+        <p><a href="https://www.fondazionmia.it/360/2015-BG-sMariaMagg-Centrale2/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Navata centrale(2)</a></p>
+        <p><a href="https://www.fondazionmia.it/360/BG-QuarengMilia-SMariaM-Cupola/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Cupola</a></p>
+        <p><a href="https://www.fondazionmia.it/360/2015-BG-sMariaMagg-CoroAltare/output/index.html" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255);">Coro</a></p>
+    </section>
+
     <script>
+        // Galleria orizzontale
         document.addEventListener("DOMContentLoaded", () => {
             const galleryImages = document.querySelectorAll('.gallery-image');
+            const galleryImagesimg2 = document.querySelectorAll('.gallery-imageimg2');
             const fixedImage = document.querySelectorAll('.fixed-image');
+            const fixedImg = document.getElementById('fixed-image');
             const autori = document.querySelectorAll('.textautori');
+            const galleryWrapper = document.querySelector('.gallery-wrapper');
             const gallery = document.querySelector('.gallery');
             const totalImages = galleryImages.length;
             const testo1 = document.getElementById('testo1-1');
@@ -177,21 +247,21 @@
                 const totalWidth = gallery.scrollWidth;
                 const viewWidth = window.innerWidth;
                 const maxScroll = totalWidth - viewWidth;
-
+            
                 let centeredIndex = Math.floor(scrollPercent * totalImages);
                 if (centeredIndex >= totalImages) {
                     centeredIndex = totalImages - 1;
                 }
-
+            
                 const centeredImage = galleryImages[centeredIndex];
                 const centeredImageOffset = centeredImage.offsetLeft + (centeredImage.offsetWidth / 2);
                 const scrollX = 1600 + centeredImageOffset - (viewWidth / 2);
-
+            
                 gallery.style.transform = `translateX(${-scrollX}px)`;
-
+            
                 galleryImages.forEach((img, index) => {
                     img.classList.remove('active', 'next');
-
+            
                     if (index === centeredIndex) {
                         img.classList.add('active');
                         testo1.style.opacity = index === 0 ? 1 : 0;
@@ -206,13 +276,15 @@
             }
 
             window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
+                const scrollY = window.scrollY - 500;
                 const scrollMax = document.body.scrollHeight - window.innerHeight;
-                const scrollThreshold = scrollMax / 12;
+                const scrollThreshold = scrollMax / 5;
 
                 const scrollPercent = scrollY / scrollThreshold;
 
-                updateGallery(scrollPercent);
+                if (scrollY > 0 && scrollY < 3500) { // Adjusted to stop animation before reaching the 5th image
+                    updateGallery(scrollPercent);
+                }
 
                 galleryImages.forEach((img) => {
                     if (scrollY <= scrollThreshold) {
@@ -237,111 +309,72 @@
                         text.style.opacity = 1 - (scrollY / scrollThreshold);
                     }
                 });
+
+                // Show gallery wrapper after 500px scroll
+                if (scrollY > 0 && scrollY < 3500) {
+                    galleryWrapper.style.opacity = 1;
+                } else {
+                    galleryWrapper.style.opacity = 0;
+                }
+
+                //hide testo1-5 after a certain scroll threshold
+                if (scrollY > 800) {
+                    // gradually decrease opacity
+                    testo5.style.opacity = 1 - (scrollY - 800) / 100;
+                } else if (scrollY > 654) {
+                    testo5.style.opacity = 1;
+                } else {
+                    testo5.style.opacity = 0;
+                }
+
+                // Hide fixed image after a certain scroll threshold
+                fixedImage.forEach((img) => {
+                    if (scrollY > 3000) {
+                        img.style.opacity = 0;
+                        fixedImage.style.opacity = 0;
+                    } else if (scrollY > 0) {
+                        img.style.opacity = 1;
+                        fixedImage.style.opacity = 1;
+                    } else {
+                        img.style.opacity = 0;
+                        fixedImage.style.opacity = 0;
+                    }
+                });
             });
         });
 
         // Funzione per l'animazione dell'immagine 2
-        function updateImage2(scrollPosition) {
-            const img2 = document.getElementById('img2-container');
-            const startScroll3 = 2500;
-            const endScroll3 = 3000;
 
-            if (scrollPosition >= startScroll2 && scrollPosition < endScroll2) {
-                img2.style.transform = 'translate(-50%, -50%) scale(2.5)';
-                img2.style.opacity = '1';
+        // Galleria frontale
+        function updateImage(scrollPosition, img, startScroll, endScroll) {
+            if (scrollPosition >= startScroll && scrollPosition < endScroll) {
+                img.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                img.style.opacity = '1';
+            } else if (scrollPosition >= endScroll) {
+                img.style.transform = 'translate(-50%, -50%) scale(6)';
+                img.style.opacity = '0';
+            } else {
+                img.style.transform = 'translate(-50%, -50%) scale(0)';
+                img.style.opacity = '0';
             }
 
-            if (scrollPosition >= endScroll2) {
-                img2.style.transform = 'translate(-50%, -50%) scale(6)';
-                img2.style.opacity = '0';
+            // sposta l'immagine 5 per evitare che vengano coperti i link
+            if (window.scrollY > 3300) {
+                document.getElementById('img5-container').style.right = 1000px;
             }
 
-            if (scrollPosition < startScroll2) {
-                img2.style.transform = 'translate(-50%, -50%) scale(0)';
-                img2.style.opacity = '0';
-            }
         }
 
-        // Funzione per l'animazione dell'immagine 3
-        function updateImage3(scrollPosition) {
-            const img3 = document.getElementById('img3-container');
-            const startScroll4 = 3500;
-            const endScroll4 = 4000;
-
-            if (scrollPosition >= startScroll3 && scrollPosition < endScroll3) {
-                img3.style.transform = 'translate(-50%, -50%) scale(2.5)';
-                img3.style.opacity = '1';
-            }
-
-            if (scrollPosition >= endScroll3) {
-                img3.style.transform = 'translate(-50%, -50%) scale(6)';
-                img3.style.opacity = '0';
-            }
-
-            if (scrollPosition < startScroll3) {
-                img3.style.transform = 'translate(-50%, -50%) scale(0)';
-                img3.style.opacity = '0';
-            }
-        }
-
-        // Funzione per l'animazione dell'immagine 4
-        function updateImage4(scrollPosition) {
-            const img4 = document.getElementById('img4-container');
-            const startScroll5 = 4500;
-            const endScroll5 = 5000;
-
-            if (scrollPosition >= startScroll4 && scrollPosition < endScroll4) {
-                img4.style.transform = 'translate(-50%, -50%) scale(2.5)';
-                img4.style.opacity = '1';
-            }
-
-            if (scrollPosition >= endScroll4) {
-                img4.style.transform = 'translate(-50%, -50%) scale(6)';
-                img4.style.opacity = '0';
-            }
-
-            if (scrollPosition < startScroll4) {
-                img4.style.transform = 'translate(-50%, -50%) scale(0)';
-                img4.style.opacity = '0';
-            }
-        }
-
-        // Funzione per l'animazione dell'immagine 5
-        function updateImage5(scrollPosition) {
-            const img5 = document.getElementById('img5-container');
-            const startScroll5 = 5000;
-            const endScroll5 = 5500;
-
-            if (scrollPosition >= startScroll5 && scrollPosition < endScroll5) {
-                img5.style.transform = 'translate(-50%, -50%) scale(2.5)';
-                img5.style.opacity = '1';
-            }
-
-            if (scrollPosition >= endScroll5) {
-                img5.style.transform = 'translate(-50%, -50%) scale(6)';
-                img5.style.opacity = '0';
-            }
-
-            if (scrollPosition < startScroll5) {
-                img5.style.transform = 'translate(-50%, -50%) scale(0)';
-                img5.style.opacity = '0';
-            }
-        }
-
-        // Aggiungi un listener per lo scroll
         window.addEventListener('scroll', () => {
             const scrollPosition = window.scrollY;
-            updateImage2(scrollPosition);
-            updateImage3(scrollPosition);
-            updateImage4(scrollPosition);
-            updateImage5(scrollPosition);
+            updateImage(scrollPosition, document.getElementById('img2-container'), 1800, 2300);
+            updateImage(scrollPosition, document.getElementById('img3-container'), 2800, 3300);
         });
 
         // Chiama le funzioni all'inizio per aggiornare la posizione iniziale
-        updateImage2(window.scrollY);
-        updateImage3(window.scrollY);
-        updateImage4(window.scrollY);
-        updateImage5(window.scrollY);
+        updateImage(scrollPosition, document.getElementById('img2-container'), 1800, 2300);
+        updateImage(scrollPosition, document.getElementById('img3-container'), 2800, 3300);
+        
     </script>
 
 </body>
